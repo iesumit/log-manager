@@ -1,0 +1,30 @@
+{
+  "name": "log-manager",
+  "version": "1.0.0",
+  "description": "Ship logs to Logz.io",
+  "main": "handler/handler.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/umits/log-manager.git"
+  },
+  "keywords": [
+    "ship",
+    "logs",
+    "logz.io"
+  ],
+  "author": "umits",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/umits/log-manager#readme",
+  "dependencies": {
+    "aws-sdk": "^2.572.0",
+    "node": "^13.1.0",
+    "serverless": "^1.57.0",
+    "ws": "^7.2.0"
+  },
+  "devDependencies": {
+    "prettier": "1.19.1"
+  }
+}
