@@ -5,16 +5,19 @@ const parse = require("./parse");
 const cloudWatchEncoding = "base64";
 const payloadEncoding = "utf8";
 
-const host = process.env.logstash_host;
-const port = process.env.logstash_port;
-const token = process.env.token;
-
+const logger = require('logzio-nodejs').createLogger({
+  token: process.env.logzio_token,
+  protocol: 'https',
+  host: process.env.logzio_host,
+  port: process.env.logzio_port,
+})
 const processAll = function(logGroup, logStream, logEvents) {
   const lambdaVersion = parse.lambdaVersion(logStream);
   const functionName = parse.functionName(logGroup);
   for (const logEvent of logEvents) {
     const log = parse.logMessage(logEvent);
-    console.log(log);
+    logger.log(log);
+    logger.sendAndClose();
   }
 };
 
