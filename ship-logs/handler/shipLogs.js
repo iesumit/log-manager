@@ -1,10 +1,11 @@
 "use strict";
 
+const { processAll } = require("../lib");
 let { decode } = require("../lib");
 
 exports.handler = async event => {
-  console.log(event.awslogs.data);
   const logEvent = await decode(event.awslogs.data);
+  await processAll(logEvent.logGroup, logEvent.logStream, logEvent.logEvents);
   return {
     statusCode: 200,
     body: JSON.stringify(
