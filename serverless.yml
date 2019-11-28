@@ -22,27 +22,30 @@ service: log-manager
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.13.0
 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource:
+        {
+          "Fn::Join":
+            ["", ["arn:aws:s3:::", { "Ref": "ServerlessDeploymentBucket" }]],
+        }
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - "Ref": "ServerlessDeploymentBucket"
+            - "/*"
 
 # you can define service wide environment variables here
 #  environment:
@@ -58,8 +61,8 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.handler
+  shiplogs:
+    handler: ship-logs/handler/shipLogs.handler
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -111,3 +114,7 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+plugins:
+  - serverless-prune-plugin
+  - serverless-offline
+  - serverless-dotenv-plugin

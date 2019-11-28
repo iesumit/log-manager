@@ -1,17 +1,16 @@
-
 // logGroup looks like this:
 //    "logGroup": "/aws/lambda/service-env-funcName"
-export function functionName(logGroup) {
+const functionName = function(logGroup) {
   return logGroup.split("/").reverse()[0];
-}
+};
 
 // logStream looks like this:
 //    "logStream": "2016/08/17/[76]afe5c000d5344c33b5d88be7a4c55816"
-export function lambdaVersion (logStream) {
+const lambdaVersion = function(logStream) {
   const start = logStream.indexOf("[");
   const end = logStream.indexOf("]");
   return logStream.substring(start + 1, end);
-}
+};
 
 const tryParseJson = function(str) {
   try {
@@ -27,7 +26,7 @@ const tryParseJson = function(str) {
 //    "START RequestId: 67c005bb-641f-11e6-b35d-6b6c651a2f01 Version: 31\n"
 //    "END RequestId: 5e665f81-641f-11e6-ab0f-b1affae60d28\n"
 //    "REPORT RequestId: 5e665f81-641f-11e6-ab0f-b1affae60d28\tDuration: 1095.52 ms\tBilled Duration: 1100 ms \tMemory Size: 128 MB\tMax Memory Used: 32 MB\t\n"
-export const parseLogMessage = function(logEvent) {
+const parseLogMessage = function(logEvent) {
   if (
     logEvent.message.startsWith("START RequestId") ||
     logEvent.message.startsWith("END RequestId") ||
@@ -60,4 +59,10 @@ export const parseLogMessage = function(logEvent) {
       "@timestamp": new Date(timestamp)
     };
   }
+};
+
+module.exports = {
+  functionName,
+  lambdaVersion,
+  logMessage: parseLogMessage
 };

@@ -1,9 +1,10 @@
 "use strict";
 
-import { decode } from "../functions/ship-logs/lib";
+let { decode } = require("../lib");
 
-module.exports.handler = async event => {
-  const logEvent = await decode(event, awslogs.data);
+exports.handler = async event => {
+  console.log(event.awslogs.data);
+  const logEvent = await decode(event.awslogs.data);
   return {
     statusCode: 200,
     body: JSON.stringify(
