@@ -20,7 +20,7 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/umits/log-manager#readme",
   "dependencies": {
-    "aws-sdk": "^2.572.0",
+    "aws-sdk": "^2.814.0",
     "logzio-nodejs": "^1.0.7",
     "node": "^13.1.0",
     "serverless": "^1.57.0",
