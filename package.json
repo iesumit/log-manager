@@ -23,7 +23,7 @@
     "aws-sdk": "^2.572.0",
     "logzio-nodejs": "^1.0.7",
     "node": "^13.1.0",
-    "serverless": "^1.57.0",
+    "serverless": "^3.25.1",
     "ws": "^7.2.0"
   },
   "devDependencies": {
